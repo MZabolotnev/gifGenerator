@@ -1,0 +1,8 @@
+.text-xs-center {
+  text-align: center;
+  font-weight: 600;
+}
+.text-muted a {
+  color: #007bff;
+  text-decoration: none;
+}
