@@ -5,9 +5,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { SearchModule } from './search/search.module';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersService } from './shared/services/users.service';
 import { AuthService } from './shared/services/auth.service';
+import { SearchService } from './shared/services/search.service';
 
 
 
@@ -21,9 +23,10 @@ import { AuthService } from './shared/services/auth.service';
     ReactiveFormsModule,
     HttpModule,
     AuthModule,
+    SearchModule,
     AppRoutingModule
   ],
-  providers: [UsersService, AuthService],
+  providers: [UsersService, AuthService, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

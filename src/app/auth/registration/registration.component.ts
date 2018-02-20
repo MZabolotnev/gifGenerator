@@ -35,7 +35,7 @@ onSubmit() {
         queryParams: {
           nowCanLogin: true
         }
-      })
+      });
     });
 }
 //Асинхронная валидация уже существующего email

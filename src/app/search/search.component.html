@@ -1,0 +1,16 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      class="form-control underlined"
+      id="search"
+      placeholder="Search"
+      formControlName="search"
+    >
+  </form>
+  <div *ngIf="gifs" class="gifsContainer">
+    <div *ngFor="let gif of gifs">
+      <img src="{{gif.images.downsized.url}}" alt="">
+    </div>
+  </div>
+</div>
