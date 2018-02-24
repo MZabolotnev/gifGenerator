@@ -1,0 +1,23 @@
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         multiple accept="image/*"
+         id="photo"
+         (change)="handleFileInput($event.target.files)">
+</div>
+
+
+<!--<div *ngIf="photos" class="image-container">-->
+  <!--<div *ngFor="let photo of photos">-->
+    <!--<img-->
+      <!--src="{{photo}}"-->
+      <!--alt="usermedia"-->
+      <!--width="200px">-->
+  <!--</div>-->
+<!--</div>-->
+
+<div *ngIf="gif" class="gif-container">
+  <img
+    src="{{gif.image}}"
+    alt="usermedia">
+</div>
