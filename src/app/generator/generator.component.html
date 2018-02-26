@@ -6,18 +6,46 @@
          (change)="handleFileInput($event.target.files)">
 </div>
 
+<!--<div *ngFor="let photo of rawPhotos">-->
+  <!--<img-->
+    <!--[src]="photo"-->
+    <!--alt="usermedia"-->
+    <!--width="200px">-->
+<!--</div>-->
 
-<!--<div *ngIf="photos" class="image-container">-->
-  <!--<div *ngFor="let photo of photos">-->
+<!--<div *ngIf="rawPhotos" class="form-group" >-->
+  <!--<div *ngFor="let photo of rawPhotos">-->
     <!--<img-->
-      <!--src="{{photo}}"-->
-      <!--alt="usermedia"-->
-      <!--width="200px">-->
+    <!--[src]="photo"-->
+    <!--alt="usermedia"-->
+    <!--width="200px">-->
+    <!--<input type="checkbox" id="check" name="check" value="checked">-->
+  <!--</div>-->
+  <!--<div>-->
+    <!--<button type="submit" (change)="checkPhotosSubmit($event.target)">Convert</button>-->
   <!--</div>-->
 <!--</div>-->
 
+<div *ngIf="rawPhotos" class="photo-form">
+  <form [formGroup]="photoForm" >
+    <div *ngFor="let photo of rawPhotos">
+      <div class="form-group">
+        <img
+          [src]="photo"
+          alt="usermedia"
+          width="200px">
+        <input type="checkbox" [formControlName]="rawPhotos.indexOf(photo)">
+      </div>
+    </div>
+    <button type="submit"
+            class="btn btn-primary"
+            (click)="checkPhotosSubmit()"
+    >Generate</button>
+  </form>
+</div>
+
 <div *ngIf="gif" class="gif-container">
   <img
-    src="{{gif.image}}"
+    [src]="gif"
     alt="usermedia">
 </div>

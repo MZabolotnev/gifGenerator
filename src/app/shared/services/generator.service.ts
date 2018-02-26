@@ -18,9 +18,8 @@ export class GeneratorService {
           console.log(obj);
         }
 
-        resolve(obj.img);
+        resolve(obj.image);
       });
-
     });
   }
 
