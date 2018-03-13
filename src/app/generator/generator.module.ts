@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { GeneratorComponent } from './generator.component';
 import { GeneratorRoutingModule } from './generator-routing.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SortablejsModule } from 'angular-sortablejs';
 
 
 
@@ -15,7 +16,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
     CommonModule,
     GeneratorRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SortablejsModule.forRoot({ animation: 150 })
   ],
   exports: [ReactiveFormsModule, FormsModule]
 })

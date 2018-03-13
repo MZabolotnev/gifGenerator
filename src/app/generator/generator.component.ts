@@ -1,60 +1,67 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GeneratorService } from './../shared/services/generator.service';
+import { Img } from './../shared/models/image.model';
+import { Gif } from './../shared/models/gif.model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SafeUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
-import {
-  FormArray,
-  FormControl, FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-generator',
   templateUrl: './generator.component.html',
   styleUrls: ['./generator.component.css']
 })
-export class GeneratorComponent implements OnInit {
-  rawPhotos: Array<SafeUrl> = [];
-  photos: Array<string> = [];
-  photoForm: FormArray;
+export class GeneratorComponent {
+  source: Array<Img> = [];
+  loader: boolean = false;
+  tagsForm: FormControl;
+  speedForm: FormControl;
   gif: any;
 
   constructor(private generatorService: GeneratorService,
               private sanitizer: DomSanitizer
-  ) { }
-
-  ngOnInit() {
+  ) {
+    this.tagsForm = new FormControl();
+    this.speedForm = new FormControl();
 
   }
-  handleFileInput(files: FileList) {
-    this.photoForm = new FormArray([]);
+
+  onDrop(event) {
+    this.handleFileInput(event.dataTransfer.files);
+    event.preventDefault();
+  }
+
+  dragover(event) {
+    event.preventDefault();
+    console.log(event);
+  }
+
+
+  handleFileInput(files: FileList) {  // Принимаем массив файлов от пользователя
+
     for (let i = 0; i < files.length; i++) {
-      this.photoForm.push(
-        new FormControl(),
-      );
-      const url = window.URL.createObjectURL(files[i]);
-      this.photos.push( url );
-      this.rawPhotos.push( this.sanitizer.bypassSecurityTrustUrl(url) );
-    }
+      const img = new Img(files[i], this.sanitizer);
+      img.state = 'checked';
+      this.source.push(img);
 
-  }
-  checkPhotosSubmit() {
-    // const checkedPhotos = this.photoForm.value.map( (val, i ) => {
-    //   if (val !== null) {
-    //     console.log(i);
-    //     return this.photos[i];
-    //   }
-    // });
-    const checkedPhotos = [];
-    for (let i = 0; i < this.photoForm.value.length; i++) {
-      if (this.photoForm.value[i] !== null) {
-        checkedPhotos.push(this.photos[i]);
-          }
     }
-    console.log(checkedPhotos);
-    this.generatorService.photosConvert(checkedPhotos)
+    console.log(this.source);
+  }
+  generateGif() {  // Генерируем гиф на основе оставшихся фото
+    console.log(this.speedForm.value);
+    const checkedPhotos = this.source.filter(elem => elem.state === 'checked')
+      .map(elem => elem.blobUrl);
+    this.source = [];
+    this.loader = true;
+    this.generatorService.photosConvert(checkedPhotos, this.speedForm.value)
       .then(result => {
-        this.gif = result;
+        this.loader = false;
+        this.gif = new Gif(result);
+        this.gif.tags = this.tagsForm.value;
+        console.log(this.gif);
       });
+  }
+
+  delImg(index) { // удаляем ненужные фото
+    this.source[index].delImg();
   }
 }
