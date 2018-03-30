@@ -1,0 +1,55 @@
+<div *ngIf="source.length === 0" class="form-container">
+  <input class="" type="file"
+         multiple accept="image/*"
+         id="photo"
+         (change)="handleFileInput($event.target.files)">
+</div>
+
+<div class="drop-zone"
+     (drop)="onDrop($event)"
+     (dragover)="dragover($event)"
+     *ngIf="source.length === 0"
+>
+  <p align="center">Drag images to this Drop Zone ...</p>
+</div>
+
+<div *ngIf="source.length > 0" class="form-container">
+  <label>Tags:
+    <input [formControl]="tagsForm">
+  </label>
+  <label>Speed:
+    <input [formControl]="speedForm" type="range" min="1" max="10" value="1" step="1">
+  </label>
+
+  <div class="img-container" [sortablejs]="source">
+    <div class="block" *ngFor="let photo of source; index as i">
+      <div class="img-block" *ngIf="photo.state == 'checked'" [id]="i" >
+        <img
+          [src]="photo.rawUrl"
+          alt="usermedia"
+          width="130px"
+        >
+        <div class="button-del" (click)="delImg(i)">x</div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="btn btn-primary" type="submit"
+          (click)="generateGif()"
+  >Generate</button>
+</div>
+
+
+<div class="gif-container">
+  <div *ngIf="loader">
+    <img src="../../assets/loader.gif" alt="">
+  </div>
+  <div class="gif-block" *ngIf="gif">
+    <img
+      [src]="gif.url"
+      alt="usermedia">
+    {{gif.tags}}
+  </div>
+</div>
+
