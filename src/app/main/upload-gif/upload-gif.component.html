@@ -1,0 +1,24 @@
+<div class="upload-wrap">
+  <div class="container">
+    <form #imageForm=ngForm>
+      <div class="row">
+        <div class="form-group">
+          <label for="file"></label>
+          <img [src]="imageUrl" style="max-width: 250px; max-height: 200px">
+          <input type="file"
+                 id="file"
+                 placeholder="Choose File"
+                 #Image
+                 accept="image/*"
+                 (change)="handleFileInput($event.target.files)">
+          <button class="btn btn-primary" (click)="uploadFileToActivity()"
+                  [disabled]="Image.value == '' || !imageForm.valid"
+          >
+            Upload</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+

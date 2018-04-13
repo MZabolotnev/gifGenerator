@@ -1,0 +1,42 @@
+.setting-form{
+  width: 100%;
+  height: auto;
+  display: flex;
+}
+.general-settings{
+  display: inline-block;
+  margin: 5px;
+}
+.text-settings{
+  display: inline-block;
+  margin: 5px;
+}
+.form-control{
+  margin: 5px;
+}
+.example-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.exampleGif{
+  border: 4px dashed black;
+}
+
+.example-text{
+  cursor: move;
+  display: inline-block;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+.gif-container{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  overflow: auto;
+}
+

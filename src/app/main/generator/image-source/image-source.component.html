@@ -1,0 +1,58 @@
+<div class="container">
+<button type="button" class="btn btn-outline-primary" (click)="isCollapsedInput = !isCollapsedInput"
+        [attr.aria-expanded]="!isCollapsedInput" aria-controls="collapse1">
+  Step1. Load photos
+</button>
+<div id="collapse1" [ngbCollapse]="isCollapsedInput">
+  <div class="card">
+    <div class="card-body">
+
+      <div  class="form-container">
+        <input class="" type="file"
+               multiple accept="image/*"
+               id="photo"
+               (change)="handleFileInput($event.target.files)">
+      </div>
+
+      <div class="drop-zone"
+           (drop)="onDrop($event)"
+           (dragover)="dragover($event)"
+           *ngIf="source.length === 0"
+      >
+        <p align="center">Drag images to this Drop Zone ...</p>
+      </div>
+
+      <div *ngIf="source.length > 0" class="form-container">
+
+        <div class="img-container"
+             [sortablejs]="source"
+             (drop)="onDrop($event)"
+             (dragover)="dragover($event)">
+          <div class="block" *ngFor="let photo of source; index as i">
+            <div class="img-block" *ngIf="photo.state == 'checked'" [id]="i" >
+              <img
+                [src]="photo.rawUrl"
+                alt="usermedia"
+                width="130px"
+              >
+              <div class="button-del" (click)="delImg(i)">x</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-outline-primary" (click)="isCollapsedRedactor = !isCollapsedRedactor"
+          [attr.aria-expanded]="!isCollapsedRedactor" aria-controls="collapseExample">
+    Step 2. Redact you gif
+  </button>
+  <div id="collapseExample" [ngbCollapse]="isCollapsedRedactor">
+    <div class="card">
+      <div class="card-body">
+        <app-gif-redactor [source]="source"></app-gif-redactor>
+      </div>
+    </div>
+  </div>
+</div>

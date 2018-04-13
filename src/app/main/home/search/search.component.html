@@ -1,0 +1,31 @@
+
+  <form [formGroup]="form" class="search-form" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      class="form-control underlined"
+      id="search"
+      placeholder="Search a GIF"
+      formControlName="search"
+    >
+    <button
+      class="search-btn"
+      type="submit"
+      [disabled]="form.status == 'INVALID'"
+    >
+      <i class="fa fa-search"></i>
+    </button>
+  </form>
+  <div *ngIf="gifs" class="gifsContainer">
+    <div class="gif-container" *ngFor="let gif of gifs | pagination:pageSize:page">
+      <app-gif [gif]="gif"></app-gif>
+    </div>
+    <div class="pagination">
+      <ngb-pagination
+        [collectionSize]="gifs.length"
+        [pageSize]="pageSize"
+        [(page)]="page"
+        (pageChange) = "pageChange($event)">
+      </ngb-pagination>
+    </div>
+  </div>
+

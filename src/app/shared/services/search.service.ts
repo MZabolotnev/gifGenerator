@@ -9,7 +9,7 @@ export class SearchService {
   constructor(private http: Http) {}
 
   searchGif(search: string) {
-    return this.http.get(`http://api.giphy.com/v1/gifs/search?q=${search}&api_key=${this.apiKey}&limit=5`)
+    return this.http.get(`http://api.giphy.com/v1/gifs/search?q=${search}&api_key=${this.apiKey}&limit=50`)
       .map((response) => response.json());
   }
 
