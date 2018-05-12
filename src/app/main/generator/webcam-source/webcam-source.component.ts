@@ -63,9 +63,6 @@ export class WebcamSourceComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    // console.log('destroy');
-    // console.log(this.stream);
-    // this.stream = undefined;
   }
 
   onMetadata() {
